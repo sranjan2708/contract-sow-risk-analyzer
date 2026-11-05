@@ -1,0 +1,27 @@
+{
+  "document_id": 2,
+  "document_type": "SOW",
+  "file_name": "sample_sow.pdf",
+  "page_count": 5,
+  "clauses": [
+    {
+      "clause_id": "2.1",
+      "title": "Deliverables",
+      "text": "Supplier shall deliver the deliverables and perform the services set forth in this Statement of Work.",
+      "page_number": 1,
+      "section": "2",
+      "parent_clause_id": null,
+      "references": []
+    },
+    {
+      "clause_id": "4.1",
+      "title": "Fees and Payment",
+      "text": "Customer shall pay each invoice within sixty (60) days of receipt.",
+      "page_number": 3,
+      "section": "4",
+      "parent_clause_id": null,
+      "references": []
+    }
+  ],
+  "parser_version": "0.1.0"
+}

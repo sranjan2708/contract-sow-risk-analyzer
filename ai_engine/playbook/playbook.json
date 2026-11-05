@@ -1,0 +1,42 @@
+[
+  {
+    "rule_id": "PB-LIAB-01",
+    "risk_category": "LIABILITY",
+    "standard": "Liability must be capped at a maximum of 12 months fees paid or payable under the applicable Statement of Work.",
+    "red_flags": [
+      "unlimited liability",
+      "no aggregate liability cap",
+      "consequential damages uncapped",
+      "indemnity carved out of liability cap"
+    ],
+    "risk_level_if_violated": "CRITICAL",
+    "fallback_language": "Except for breach of confidentiality obligations, each party's total aggregate liability arising out of or related to this Agreement shall be limited to the total fees paid or payable by Customer in the twelve (12) months preceding the claim."
+  },
+  {
+    "rule_id": "PB-PAY-01",
+    "risk_category": "PAYMENT",
+    "standard": "Payment terms must be net thirty (30) days or less, and Statement of Work terms must not exceed Master Services Agreement terms.",
+    "red_flags": [
+      "payment terms exceeding 30 days",
+      "net 60 days",
+      "net 90 days",
+      "pay when paid",
+      "discretionary payment milestones"
+    ],
+    "risk_level_if_violated": "HIGH",
+    "fallback_language": "Customer shall pay all undisputed invoiced amounts within thirty (30) calendar days of receipt of a valid, itemized tax invoice."
+  },
+  {
+    "rule_id": "PB-TERM-01",
+    "risk_category": "TERMINATION",
+    "standard": "Termination for convenience must require at least thirty (30) days prior written notice and payment for all work performed to date.",
+    "red_flags": [
+      "immediate termination for convenience",
+      "termination notice under 30 days",
+      "unilateral termination without payment for work performed",
+      "missing cross-references in termination clauses"
+    ],
+    "risk_level_if_violated": "MEDIUM",
+    "fallback_language": "Either party may terminate this Agreement or any SOW for convenience upon giving not less than thirty (30) calendar days prior written notice to the other party, provided that Customer pays for all conforming Services delivered up to the effective termination date."
+  }
+]

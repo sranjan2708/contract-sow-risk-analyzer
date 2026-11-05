@@ -1,0 +1,36 @@
+# ==============================================================================
+# Contract & SOW Risk Analyzer — Dependencies
+# Rules:
+# 1. Pinned versions only.
+# 2. Sectioned ownership: each developer appends ONLY in their owned section.
+# ==============================================================================
+
+# ---- SHARED / CORE (Sudhansu & Pratyush) ----
+pydantic==2.9.2
+python-dotenv==1.0.1
+networkx==3.3
+
+# ---- BACKEND (Sudhansu) ----
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.12
+PyMySQL==1.1.1
+cryptography==43.0.1
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# ---- AI ENGINE (Sudhansu) ----
+# sentence-transformers==3.0.1
+# chromadb==0.5.5
+# openai==1.45.0
+
+# ---- DOC ENGINE (Pratyush) ----
+# PyMuPDF==1.24.9
+# python-docx==1.1.2
+# pytesseract==0.3.10
+# Pillow==10.4.0
+
+# ---- TESTING & QA (Both) ----
+pytest==8.3.3
+httpx==0.27.2

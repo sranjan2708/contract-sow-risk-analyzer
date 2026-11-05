@@ -1,0 +1,48 @@
+{
+  "document_id": 1,
+  "overall_risk_score": 78.5,
+  "summary": "High risk detected due to uncapped liability and unresolved clause reference.",
+  "findings": [
+    {
+      "finding_id": 101,
+      "clause_id": "8.1",
+      "risk_level": "CRITICAL",
+      "risk_category": "LIABILITY",
+      "explanation": "Unlimited liability poses severe financial and operational exposure.",
+      "evidence": [
+        {
+          "source": "CLAUSE",
+          "reference": "8.1",
+          "quote": "Supplier's total liability shall be unlimited for all claims arising under this Agreement.",
+          "page_number": 7
+        },
+        {
+          "source": "PLAYBOOK",
+          "reference": "PB-LIAB-01",
+          "quote": "Standard: Liability must be capped at 12 months fees.",
+          "page_number": null
+        }
+      ],
+      "suggested_redline": "Supplier's total aggregate liability arising out of or related to this Agreement shall be capped at the total fees paid or payable by Customer in the twelve (12) months preceding the claim.",
+      "review_status": "PENDING"
+    },
+    {
+      "finding_id": 102,
+      "clause_id": "11.2",
+      "risk_level": "MEDIUM",
+      "risk_category": "TERMINATION",
+      "explanation": "Termination clause references non-existent Section 14.3.",
+      "evidence": [
+        {
+          "source": "GRAPH",
+          "reference": "11.2->14.3",
+          "quote": "Reference to missing clause 14.3 creates contractual ambiguity.",
+          "page_number": 10
+        }
+      ],
+      "suggested_redline": "Customer may terminate this Agreement for convenience upon thirty (30) days prior written notice.",
+      "review_status": "PENDING"
+    }
+  ],
+  "model_used": "stub"
+}

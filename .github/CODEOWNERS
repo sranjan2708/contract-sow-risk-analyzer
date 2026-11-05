@@ -1,0 +1,20 @@
+# ==============================================================================
+# CODEOWNERS — Code Ownership & Review Routing
+# ==============================================================================
+
+# Shared & Root governance (Both developers)
+* @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+/shared/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+/docs/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+/tests/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+/AGENTS.md @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+/.github/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+
+# Sudhansu's domain
+/backend/ @SUDHANSU_GITHUB_USERNAME
+/ai_engine/ @SUDHANSU_GITHUB_USERNAME
+
+# Pratyush's domain
+/frontend/ @PRATYUSH_GITHUB_USERNAME
+/doc_engine/ @PRATYUSH_GITHUB_USERNAME
+/graph_engine/ @PRATYUSH_GITHUB_USERNAME

@@ -1,0 +1,31 @@
+{
+  "msa_document_id": 1,
+  "sow_document_id": 2,
+  "contradictions": [
+    {
+      "contradiction_id": 201,
+      "msa_clause_id": "5.1",
+      "sow_clause_id": "4.1",
+      "risk_category": "PAYMENT",
+      "risk_level": "HIGH",
+      "description": "MSA requires payment within 30 days, SOW allows 60 days.",
+      "evidence": [
+        {
+          "source": "CLAUSE",
+          "reference": "MSA:5.1",
+          "quote": "Customer shall pay all undisputed invoices within thirty (30) days of receipt.",
+          "page_number": 4
+        },
+        {
+          "source": "CLAUSE",
+          "reference": "SOW:4.1",
+          "quote": "Customer shall pay each invoice within sixty (60) days of receipt.",
+          "page_number": 3
+        }
+      ],
+      "suggested_redline": "Customer shall pay each invoice within thirty (30) days of receipt, in accordance with Section 5.1 of the Master Services Agreement.",
+      "review_status": "PENDING"
+    }
+  ],
+  "model_used": "stub"
+}

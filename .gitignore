@@ -1,0 +1,56 @@
+# Environment variables (allow .env.example)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node & Frontend
+node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Data, Uploads, Vectors & Models
+uploads/
+chroma_data/
+models/
+
+# Logs
+*.log
+
+# IDE & Editor configs
+.idea/
+.DS_Store
+.vscode/*
+!.vscode/settings.json

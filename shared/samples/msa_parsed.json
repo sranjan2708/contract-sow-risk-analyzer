@@ -1,0 +1,51 @@
+{
+  "document_id": 1,
+  "document_type": "MSA",
+  "file_name": "sample_msa.pdf",
+  "page_count": 12,
+  "clauses": [
+    {
+      "clause_id": "3.1",
+      "title": "Scope",
+      "text": "Supplier shall provide the Services described in each Statement of Work, subject to Section 8.",
+      "page_number": 2,
+      "section": "3",
+      "parent_clause_id": null,
+      "references": [
+        "8.1"
+      ]
+    },
+    {
+      "clause_id": "5.1",
+      "title": "Payment Terms",
+      "text": "Customer shall pay all undisputed invoices within thirty (30) days of receipt.",
+      "page_number": 4,
+      "section": "5",
+      "parent_clause_id": null,
+      "references": []
+    },
+    {
+      "clause_id": "8.1",
+      "title": "Limitation of Liability",
+      "text": "Notwithstanding Section 3.1, Supplier's total liability shall be unlimited for all claims arising under this Agreement.",
+      "page_number": 7,
+      "section": "8",
+      "parent_clause_id": null,
+      "references": [
+        "3.1"
+      ]
+    },
+    {
+      "clause_id": "11.2",
+      "title": "Termination for Convenience",
+      "text": "Customer may terminate this Agreement for convenience upon fifteen (15) days written notice, as described in Section 14.3.",
+      "page_number": 10,
+      "section": "11",
+      "parent_clause_id": null,
+      "references": [
+        "14.3"
+      ]
+    }
+  ],
+  "parser_version": "0.1.0"
+}

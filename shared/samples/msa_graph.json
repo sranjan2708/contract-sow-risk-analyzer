@@ -1,0 +1,46 @@
+{
+  "document_id": 1,
+  "nodes": [
+    {
+      "clause_id": "3.1",
+      "title": "Scope"
+    },
+    {
+      "clause_id": "5.1",
+      "title": "Payment Terms"
+    },
+    {
+      "clause_id": "8.1",
+      "title": "Limitation of Liability"
+    },
+    {
+      "clause_id": "11.2",
+      "title": "Termination for Convenience"
+    }
+  ],
+  "edges": [
+    {
+      "source": "3.1",
+      "target": "8.1",
+      "relation": "REFERENCES"
+    },
+    {
+      "source": "8.1",
+      "target": "3.1",
+      "relation": "OVERRIDES"
+    }
+  ],
+  "has_cycle": true,
+  "cycles": [
+    [
+      "3.1",
+      "8.1"
+    ]
+  ],
+  "invalid_references": [
+    {
+      "clause_id": "11.2",
+      "missing_target": "14.3"
+    }
+  ]
+}
