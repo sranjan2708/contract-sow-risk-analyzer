@@ -177,3 +177,4 @@ Before making any changes, review the following essential documentation:
 - **[docs/AI_SESSION_PROMPT.md](file:///d:/Contract%20&%20SOW%20Risk%20Analyzer/docs/AI_SESSION_PROMPT.md)**: Copy-paste starter prompts for AI sessions.
 - **[docs/api_contracts.md](file:///d:/Contract%20&%20SOW%20Risk%20Analyzer/docs/api_contracts.md)**: Contract 3 REST endpoint specification.
 - **[docs/architecture.md](file:///d:/Contract%20&%20SOW%20Risk%20Analyzer/docs/architecture.md)**: Component boundary isolation and architectural flows.
+

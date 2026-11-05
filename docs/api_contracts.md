@@ -65,3 +65,4 @@ When a document is uploaded via `POST /api/v1/documents`, the backend pipeline e
    - Insert audit records with actions `UPLOADED`, `PARSED`, and `GRAPH_BUILT`.
 8. **Error Handling**:
    - If an exception occurs at any stage, update document `status = 'FAILED'`, log an audit event with action `FAILED` and error details, and return an appropriate 4xx/5xx `ErrorResponse`.
+

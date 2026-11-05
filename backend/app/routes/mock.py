@@ -331,3 +331,4 @@ def get_document_audit(document_id: int) -> list[AuditEvent]:
             created_at=base_time,
         ),
     ]
+

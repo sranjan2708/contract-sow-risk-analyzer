@@ -78,3 +78,4 @@ At the end of each development phase/hackathon milestone:
    git tag -a phase-1 -m "Release Phase 1: MVP Contract & SOW Risk Analyzer"
    git push origin phase-1
    ```
+

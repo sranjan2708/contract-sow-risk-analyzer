@@ -41,3 +41,4 @@ app.include_router(health.router)
 # 2. Mock router is conditionally included in mock mode
 if settings.MOCK_MODE:
     app.include_router(mock.router)
+

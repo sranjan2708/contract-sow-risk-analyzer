@@ -20,3 +20,4 @@ def health_check() -> dict:
         "mock_mode": settings.MOCK_MODE,
         "contract_version": CONTRACT_VERSION,
     }
+

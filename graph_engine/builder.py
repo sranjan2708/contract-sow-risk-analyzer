@@ -70,3 +70,4 @@ def build_graph(document: ParsedDocument) -> ClauseGraph:
         cycles=cycles,
         invalid_references=invalid_references,
     )
+

@@ -50,3 +50,4 @@ class Settings:
 def get_settings() -> Settings:
     """Return a cached instance of application Settings."""
     return Settings()
+

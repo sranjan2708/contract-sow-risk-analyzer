@@ -23,3 +23,4 @@ My task now: <TASK>
 1. **One Task Per Session**: Break work down into small, single-purpose tasks. Do not ask an AI to build an entire subsystem in one prompt.
 2. **Halt on Contract Suggestions**: If the AI suggests modifying `shared/contracts.py` or renaming fields to solve a problem, STOP. Check if the task can be completed using the existing contract models first.
 3. **Run Pre-Push Verification**: Before committing or pushing code, ask the AI: *"Check the proposed git diff against the 6 checkboxes in AGENTS.md Section 8 and verify all pytest tests pass."*
+

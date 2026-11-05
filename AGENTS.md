@@ -112,3 +112,4 @@ Every AI agent must verify these 6 points before declaring any task complete:
 - [ ] 4. All database queries use raw parameterized SQL with `%s`.
 - [ ] 5. Pure engine isolation holds (zero forbidden imports across engines/backend).
 - [ ] 6. Test suite runs and passes 100% green via `pytest`.
+

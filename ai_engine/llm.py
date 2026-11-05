@@ -33,3 +33,4 @@ def complete(prompt: str, system: str = "", max_tokens: int = 800) -> str:
     raise NotImplementedError(
         f"LLM provider '{provider}' is not implemented yet. Set LLM_PROVIDER=stub or implement provider in ai_engine/llm.py."
     )
+

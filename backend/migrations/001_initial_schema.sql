@@ -150,3 +150,4 @@ CREATE TABLE IF NOT EXISTS audit_log (
     CONSTRAINT fk_audit_document FOREIGN KEY (document_id) REFERENCES documents(document_id) ON DELETE CASCADE,
     CONSTRAINT fk_audit_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

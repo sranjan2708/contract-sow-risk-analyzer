@@ -220,3 +220,4 @@ class AuditEvent(_Strict):
 
 class ErrorResponse(_Strict):
     detail: str
+

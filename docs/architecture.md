@@ -99,3 +99,4 @@ sequenceDiagram
     Backend->>DB: Persist Comparison & Contradictions
     Backend-->>Frontend: ComparisonResult (200 OK)
 ```
+

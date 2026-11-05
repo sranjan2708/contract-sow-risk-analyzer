@@ -58,3 +58,4 @@ def ping() -> bool:
     except Exception as exc:
         logger.warning("Database ping failed (DB not required in mock/test mode): %s", exc)
         return False
+

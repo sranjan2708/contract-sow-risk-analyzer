@@ -32,3 +32,4 @@ When scaffolding the Vite application:
 1. **Never call `fetch` directly from components**: All network interactions MUST go through `src/api/endpoints.js` which delegates exclusively to `src/api/client.js`.
 2. **Follow Frozen Contracts**: All payload and response fields are strictly `snake_case` matching `shared/contracts.py` and `docs/api_contracts.md`.
 3. **No Styling Libraries without Agreement**: Plain CSS only (modular CSS or standard CSS classes), unless both team members explicitly agree otherwise.
+

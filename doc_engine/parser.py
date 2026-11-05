@@ -44,3 +44,4 @@ def parse_document(file_path: str, document_type: str) -> ParsedDocument:
     doc_copy.file_name = path.name
     doc_copy.document_type = doc_type
     return doc_copy
+

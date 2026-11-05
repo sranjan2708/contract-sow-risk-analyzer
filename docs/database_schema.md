@@ -121,3 +121,4 @@ The following actions must be recorded in `audit_log.action`:
 - `COMPARED`: Multi-document MSA-vs-SOW comparison completed.
 - `REVIEWED`: Human reviewer updated a finding or contradiction.
 - `FAILED`: Failure encountered during any processing pipeline stage.
+

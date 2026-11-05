@@ -10,3 +10,4 @@ Always read and follow @AGENTS.md before making any changes.
 6. **Import Contracts Directly**: Import models only from `shared.contracts` and return validated Pydantic instances rather than dictionaries.
 7. **Green Test Suite**: Always run and pass `pytest` before declaring any task complete or committing changes.
 8. **Feature Branches Only**: Never commit directly to `main` or `develop`; always create a feature branch (`feature/<owner>-<task>`) from updated `develop`.
+

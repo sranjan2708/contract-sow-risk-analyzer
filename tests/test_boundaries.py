@@ -156,3 +156,4 @@ def test_no_contract_model_redefined_outside_shared():
             )
 
     assert not violations, "\n".join(violations)
+

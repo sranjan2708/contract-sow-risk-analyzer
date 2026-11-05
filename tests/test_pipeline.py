@@ -92,3 +92,4 @@ def test_full_pipeline_msa_and_sow(tmp_path: Path):
     assert isinstance(msa_analysis, AnalysisResult)
     assert isinstance(sow_analysis, AnalysisResult)
     assert isinstance(comparison, ComparisonResult)
+

@@ -99,3 +99,4 @@ def compare_documents(
         contradictions=[],
         model_used="stub",
     )
+
