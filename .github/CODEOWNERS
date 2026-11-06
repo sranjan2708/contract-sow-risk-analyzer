@@ -3,19 +3,19 @@
 # ==============================================================================
 
 # Shared & Root governance (Both developers)
-* @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
-/shared/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
-/docs/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
-/tests/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
-/AGENTS.md @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
-/.github/ @SUDHANSU_GITHUB_USERNAME @PRATYUSH_GITHUB_USERNAME
+* @sranjan2708 @pratyush7761
+/shared/ @sranjan2708 @pratyush7761
+/docs/ @sranjan2708 @pratyush7761
+/tests/ @sranjan2708 @pratyush7761
+/AGENTS.md @sranjan2708 @pratyush7761
+/.github/ @sranjan2708 @pratyush7761
 
 # Sudhansu's domain
-/backend/ @SUDHANSU_GITHUB_USERNAME
-/ai_engine/ @SUDHANSU_GITHUB_USERNAME
+/backend/ @sranjan2708
+/ai_engine/ @sranjan2708
 
 # Pratyush's domain
-/frontend/ @PRATYUSH_GITHUB_USERNAME
-/doc_engine/ @PRATYUSH_GITHUB_USERNAME
-/graph_engine/ @PRATYUSH_GITHUB_USERNAME
+/frontend/ @pratyush7761
+/doc_engine/ @pratyush7761
+/graph_engine/ @pratyush7761
 
