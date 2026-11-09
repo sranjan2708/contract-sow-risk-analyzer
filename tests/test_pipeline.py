@@ -18,13 +18,15 @@ from shared.contracts import (
 )
 from shared.samples import sample_msa
 
+FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
+
 
 def test_parse_document_returns_parsed_document_with_none_id_and_str_clauses(
     tmp_path: Path,
 ):
     """parse_document returns ParsedDocument with document_id None and all string clause_ids."""
     dummy_file = tmp_path / "sample_contract.pdf"
-    dummy_file.write_text("Dummy contract content for parser test", encoding="utf-8")
+    dummy_file.write_bytes((FIXTURES_DIR / "sample_msa.pdf").read_bytes())
 
     parsed = parse_document(str(dummy_file), "MSA")
     assert isinstance(parsed, ParsedDocument)
@@ -73,10 +75,10 @@ def test_analyze_document_with_graph_and_without_graph():
 def test_full_pipeline_msa_and_sow(tmp_path: Path):
     """Full pipeline execution from dummy files through to AnalysisResult and ComparisonResult."""
     dummy_msa = tmp_path / "contract_master.pdf"
-    dummy_msa.write_text("Master agreement dummy content", encoding="utf-8")
+    dummy_msa.write_bytes((FIXTURES_DIR / "sample_msa.pdf").read_bytes())
 
     dummy_sow = tmp_path / "statement_of_work.docx"
-    dummy_sow.write_text("SOW dummy content", encoding="utf-8")
+    dummy_sow.write_bytes((FIXTURES_DIR / "sample_sow.docx").read_bytes())
 
     parsed_msa = parse_document(str(dummy_msa), "MSA")
     parsed_sow = parse_document(str(dummy_sow), "SOW")
