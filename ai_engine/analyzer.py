@@ -1,21 +1,19 @@
 """
 AI engine analysis and comparison module.
-STUB — owner replaces body, keep signature.
+Executes deterministic playbook rules and graph anomaly detection.
 """
 from __future__ import annotations
 
 import logging
 from typing import Optional
 
+from ai_engine.rules import check_clause_rules, check_graph_rules
+from ai_engine.scoring import compute_risk_score
 from shared.contracts import (
     AnalysisResult,
     ClauseGraph,
     ComparisonResult,
-    Evidence,
-    EvidenceSource,
     ParsedDocument,
-    ReviewStatus,
-    RiskCategory,
     RiskFinding,
     RiskLevel,
 )
@@ -30,7 +28,7 @@ def analyze_document(
     """
     Analyze a parsed contract document and optional clause graph against playbook rules.
 
-    STUB — owner replaces body, keep signature.
+    Runs clause rules always, and graph rules only if graph is not None.
 
     Args:
         document: Validated ParsedDocument contract model.
@@ -39,40 +37,44 @@ def analyze_document(
     Returns:
         AnalysisResult: Validated risk findings and score.
     """
-    logger.warning("STUB: analyze_document using stub implementation.")
+    logger.info("Analyzing document %s (id: %s)", document.file_name, document.document_id)
     findings: list[RiskFinding] = []
 
-    if graph is not None:
-        for index, inv in enumerate(graph.invalid_references, start=1):
-            finding = RiskFinding(
-                finding_id=index,
-                clause_id=inv.clause_id,
-                risk_level=RiskLevel.MEDIUM,
-                risk_category=RiskCategory.OTHER,
-                explanation=f"Clause {inv.clause_id} references missing clause {inv.missing_target}.",
-                evidence=[
-                    Evidence(
-                        source=EvidenceSource.GRAPH,
-                        reference=f"{inv.clause_id}->{inv.missing_target}",
-                        quote=f"Invalid reference to non-existent clause {inv.missing_target}.",
-                        page_number=None,
-                    )
-                ],
-                suggested_redline=None,
-                review_status=ReviewStatus.PENDING,
-            )
-            findings.append(finding)
+    # 1. Clause rules are executed always
+    for clause in document.clauses:
+        clause_findings = check_clause_rules(clause)
+        findings.extend(clause_findings)
 
-    n = len(findings)
-    score = float(min(100, 25 * n))
-    summary = f"Stub analysis completed for {len(document.clauses)} clauses. Found {n} risk issues."
+    # 2. Graph rules are executed only if graph is provided
+    if graph is not None:
+        graph_findings = check_graph_rules(graph)
+        findings.extend(graph_findings)
+
+    # 3. Deterministic risk score
+    score = compute_risk_score(findings)
+
+    # 4. Summary counts per risk level
+    level_counts = {
+        RiskLevel.CRITICAL: 0,
+        RiskLevel.HIGH: 0,
+        RiskLevel.MEDIUM: 0,
+        RiskLevel.LOW: 0,
+    }
+    for f in findings:
+        level_counts[f.risk_level] = level_counts.get(f.risk_level, 0) + 1
+
+    summary = (
+        f"Analyzed {len(document.clauses)} clauses. Found {len(findings)} risk issues: "
+        f"{level_counts[RiskLevel.CRITICAL]} CRITICAL, {level_counts[RiskLevel.HIGH]} HIGH, "
+        f"{level_counts[RiskLevel.MEDIUM]} MEDIUM, {level_counts[RiskLevel.LOW]} LOW."
+    )
 
     return AnalysisResult(
         document_id=document.document_id,
         overall_risk_score=score,
         summary=summary,
         findings=findings,
-        model_used="stub",
+        model_used="playbook-rules-v1",
     )
 
 
@@ -99,4 +101,3 @@ def compare_documents(
         contradictions=[],
         model_used="stub",
     )
-

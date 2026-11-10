@@ -14,7 +14,9 @@ from shared.contracts import (
     AnalysisResult,
     ClauseGraph,
     ComparisonResult,
+    EvidenceSource,
     ParsedDocument,
+    RiskCategory,
 )
 from shared.samples import sample_msa
 
@@ -68,8 +70,13 @@ def test_analyze_document_with_graph_and_without_graph():
 
     result_without_graph = analyze_document(msa_doc, graph=None)
     assert isinstance(result_without_graph, AnalysisResult)
-    assert result_without_graph.overall_risk_score == 0.0
-    assert len(result_without_graph.findings) == 0
+    assert len(result_without_graph.findings) > 0
+    categories = {f.risk_category for f in result_without_graph.findings}
+    assert categories == {RiskCategory.LIABILITY, RiskCategory.TERMINATION}
+    for finding in result_without_graph.findings:
+        for ev in finding.evidence:
+            assert ev.source != EvidenceSource.GRAPH
+    assert result_without_graph.overall_risk_score == 50.0
 
 
 def test_full_pipeline_msa_and_sow(tmp_path: Path):
