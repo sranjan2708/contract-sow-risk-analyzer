@@ -1,16 +1,19 @@
 """
 Unit and integration tests for doc_engine:
 - pdf_reader: extract_pages with 1-based page numbers
-- segmenter: numbered-heading segmentation, section, parent_clause_id, references, deduplication
+- docx_reader: extract_docx_text with sequential reading order
+- segmenter: numbered-heading segmentation, section, parent_clause_id, references, deduplication, heading hardening
 - parser: parse_document contract compliance, error handling, validation
 """
 from __future__ import annotations
 
 from pathlib import Path
 
+import docx
 import fitz
 import pytest
 
+from doc_engine.docx_reader import extract_docx_text
 from doc_engine.parser import parse_document
 from doc_engine.pdf_reader import extract_pages
 from doc_engine.segmenter import segment
@@ -53,6 +56,53 @@ def test_parse_fixture_pdf_clauses_and_references():
     assert clause_11_2.section == "11"
 
 
+def test_parse_sample_sow_docx_clauses_and_text():
+    """sample_sow.docx parses to clauses 2.1 and 4.1 (with the text 'sixty (60) days')."""
+    parsed = parse_document(str(SAMPLE_SOW_DOCX), "SOW")
+
+    assert isinstance(parsed, ParsedDocument)
+    assert parsed.document_id is None
+    assert parsed.document_type == DocumentType.SOW
+    assert parsed.file_name == "sample_sow.docx"
+    assert parsed.page_count == 1
+
+    clause_ids = [c.clause_id for c in parsed.clauses]
+    assert clause_ids == ["2.1", "4.1"]
+
+    c_2_1 = next(c for c in parsed.clauses if c.clause_id == "2.1")
+    assert c_2_1.title == "Deliverables"
+    assert "deliverables" in c_2_1.text
+    assert c_2_1.section == "2"
+    assert c_2_1.page_number == 1
+
+    c_4_1 = next(c for c in parsed.clauses if c.clause_id == "4.1")
+    assert c_4_1.title == "Fees and Payment"
+    assert "sixty (60) days" in c_4_1.text
+    assert c_4_1.section == "4"
+    assert c_4_1.page_number == 1
+
+
+def test_body_line_starting_with_section_does_not_create_clause():
+    """A body line starting 'Section 8.1 ...' must not create a new clause and its references are extracted."""
+    pages = [
+        (
+            1,
+            "3.1 Scope\n"
+            "Supplier shall provide the services as agreed.\n"
+            "Section 8.1 shall apply to all liability claims.\n"
+            "Clause 14.3 governs termination procedures.",
+        )
+    ]
+    clauses = segment(pages)
+
+    assert len(clauses) == 1
+    assert clauses[0].clause_id == "3.1"
+    assert clauses[0].title == "Scope"
+    assert "Section 8.1 shall apply to all liability claims." in clauses[0].text
+    assert "8.1" in clauses[0].references
+    assert "14.3" in clauses[0].references
+
+
 def test_parse_txt_path_raises_value_error(tmp_path: Path):
     """Passing a .txt file must raise ValueError for unsupported format."""
     txt_file = tmp_path / "contract.txt"
@@ -69,6 +119,15 @@ def test_parse_fake_pdf_raises_value_error(tmp_path: Path):
 
     with pytest.raises(ValueError, match="Unreadable PDF"):
         parse_document(str(fake_pdf), "MSA")
+
+
+def test_parse_fake_docx_raises_value_error(tmp_path: Path):
+    """A plain text file renamed to .docx must fail DOCX extraction and raise ValueError."""
+    fake_docx = tmp_path / "fake_contract.docx"
+    fake_docx.write_text("This is not a real DOCX file structure", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Unreadable DOCX"):
+        parse_document(str(fake_docx), "SOW")
 
 
 def test_parse_nonexistent_file_raises_value_error():
@@ -95,6 +154,17 @@ def test_parse_zero_clauses_pdf_raises_value_error(tmp_path: Path):
         parse_document(str(blank_pdf), "MSA")
 
 
+def test_parse_zero_clauses_docx_raises_value_error(tmp_path: Path):
+    """A DOCX with paragraphs but zero numbered clauses must raise ValueError."""
+    blank_docx = tmp_path / "empty_sow.docx"
+    doc = docx.Document()
+    doc.add_paragraph("Introductory text without any numbered clause headings.")
+    doc.save(str(blank_docx))
+
+    with pytest.raises(ValueError, match="Zero clauses found"):
+        parse_document(str(blank_docx), "SOW")
+
+
 def test_extract_pages_returns_one_based_pages():
     """extract_pages returns sequential 1-based page numbers with non-empty text."""
     pages = extract_pages(str(SAMPLE_MSA_PDF))
@@ -112,6 +182,18 @@ def test_extract_pages_nonexistent_file():
     """extract_pages raises FileNotFoundError for missing file."""
     with pytest.raises(FileNotFoundError):
         extract_pages("missing_file.pdf")
+
+
+def test_extract_docx_text_valid_and_nonexistent():
+    """extract_docx_text returns [(1, text)] with full text and raises FileNotFoundError if missing."""
+    pages = extract_docx_text(str(SAMPLE_SOW_DOCX))
+    assert len(pages) == 1
+    assert pages[0][0] == 1
+    assert "2.1 Deliverables" in pages[0][1]
+    assert "sixty (60) days" in pages[0][1]
+
+    with pytest.raises(FileNotFoundError):
+        extract_docx_text("missing_file.docx")
 
 
 def test_segmenter_parent_clause_id_and_section():
@@ -170,14 +252,3 @@ def test_segmenter_excludes_self_reference():
     assert clauses[0].clause_id == "4.2"
     assert "9.1" in clauses[0].references
     assert "4.2" not in clauses[0].references
-
-
-def test_parse_docx_stub_succeeds():
-    """DOCX parsing currently falls back to stub and returns valid ParsedDocument."""
-    parsed = parse_document(str(SAMPLE_SOW_DOCX), "SOW")
-    assert isinstance(parsed, ParsedDocument)
-    assert parsed.document_id is None
-    assert parsed.document_type == DocumentType.SOW
-    assert parsed.file_name == "sample_sow.docx"
-    assert len(parsed.clauses) > 0
-

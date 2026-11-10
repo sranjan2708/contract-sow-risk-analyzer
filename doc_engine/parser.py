@@ -7,10 +7,10 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+from doc_engine.docx_reader import extract_docx_text
 from doc_engine.pdf_reader import extract_pages
 from doc_engine.segmenter import segment
 from shared.contracts import DocumentType, ParsedDocument
-from shared.samples import sample_msa, sample_sow
 
 logger = logging.getLogger(__name__)
 
@@ -66,11 +66,25 @@ def parse_document(file_path: str, document_type: str) -> ParsedDocument:
             parser_version="0.1.0",
         )
 
-    # DOCX format — current stub retained
-    logger.warning("DOCX parsing is stubbed; returning sample stub data for %s", file_path)
-    base = sample_msa() if doc_type == DocumentType.MSA else sample_sow()
-    doc_copy = base.model_copy(deep=True)
-    doc_copy.document_id = None
-    doc_copy.file_name = path.name
-    doc_copy.document_type = doc_type
-    return doc_copy
+    # DOCX format parsing
+    try:
+        pages = extract_docx_text(str(path))
+    except Exception as exc:
+        logger.error("Failed to read DOCX file '%s': %s", file_path, exc)
+        raise ValueError(f"Unreadable DOCX file '{file_path}': {exc}") from exc
+
+    if not pages or not pages[0][1].strip():
+        raise ValueError(f"Zero clauses found in DOCX document '{file_path}'.")
+
+    clauses = segment(pages)
+    if not clauses:
+        raise ValueError(f"Zero clauses found in DOCX document '{file_path}'.")
+
+    return ParsedDocument(
+        document_id=None,
+        document_type=doc_type,
+        file_name=path.name,
+        page_count=max(len(pages), 1),
+        clauses=clauses,
+        parser_version="0.1.0",
+    )
