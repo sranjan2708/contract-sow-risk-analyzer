@@ -18,11 +18,37 @@ HEADING_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-# Matches cross-clause references like "Section 8.1", "Section 14.3", "Sections 3.1"
+# Matches cross-clause references like "Section 8.1", "Clause 14.3", "Sections 3.1"
 REFERENCE_PATTERN = re.compile(
-    r"\bSections?\s+(\d+(?:\.\d+)+)",
+    r"\b(?:Sections?|Clauses?)\s+(\d+(?:\.\d+)+)",
     re.IGNORECASE,
 )
+
+
+def _is_valid_heading_title(raw_title: str) -> bool:
+    """
+    Validate whether text following a section number qualifies as a heading title.
+
+    Rules:
+    - short title (<= 10 words)
+    - no trailing sentence period (does not end with '.')
+    - not starting with a lowercase character (e.g. 'shall apply...')
+    """
+    trimmed = raw_title.strip()
+    if not trimmed:
+        return True
+
+    words = trimmed.split()
+    if len(words) > 10:
+        return False
+
+    if trimmed.endswith("."):
+        return False
+
+    if trimmed[0].islower():
+        return False
+
+    return True
 
 
 def _compute_parent_clause_id(clause_id: str) -> Optional[str]:
@@ -67,13 +93,13 @@ def segment(pages: list[tuple[int, str]]) -> list[Clause]:
                 continue
 
             match = HEADING_PATTERN.match(line)
-            if match:
+            if match and _is_valid_heading_title(match.group(2)):
                 # Finalize previous clause if present
                 if current is not None:
                     raw_clauses.append(current)
 
                 clause_id = match.group(1).strip()
-                raw_title = match.group(2).strip()
+                raw_title = match.group(2).strip().rstrip(":- \t")
                 title = raw_title if raw_title else None
 
                 current = {
@@ -121,4 +147,3 @@ def segment(pages: list[tuple[int, str]]) -> list[Clause]:
 
     logger.debug("Segmented %d unique clauses", len(clauses))
     return clauses
-
