@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.config import get_settings
-from backend.app.routes import auth, health, mock
+from backend.app.routes import auth, documents, health, mock
 
 logger = logging.getLogger(__name__)
 
@@ -48,11 +48,12 @@ def create_app(mock_mode: Optional[bool] = None) -> FastAPI:
     # 1. Health router is always included
     application.include_router(health.router)
 
-    # 2. Real auth or mock router based on mock_mode
+    # 2. Real auth + documents or mock router based on mock_mode
     if is_mock:
         application.include_router(mock.router)
     else:
         application.include_router(auth.router)
+        application.include_router(documents.router)
 
     return application
 
