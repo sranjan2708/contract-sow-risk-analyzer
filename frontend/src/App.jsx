@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import DocumentsPage from "./pages/DocumentsPage.jsx";
+import DocumentDetailPage from "./pages/DocumentDetailPage.jsx";
 import "./App.css";
 
 export default function App() {
@@ -19,6 +20,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <DocumentsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/documents/:id"
+            element={
+              <ProtectedRoute>
+                <DocumentDetailPage />
               </ProtectedRoute>
             }
           />
